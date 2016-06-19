@@ -1,0 +1,15 @@
+{
+  "elements": [
+	{ "from": [ 4, 4, 12 ],
+	  "to": [ 12, 12, 16 ],
+	  "faces": {
+		"down": { "texture": "#top" },
+		"up": { "texture": "#top" },
+		"north": { "texture": "#connection" },
+		"south": { "texture": "#side" },
+		"west":  { "texture": "#side" },
+		"east":  { "texture": "#side" }
+	  }
+	}
+  ]
+}

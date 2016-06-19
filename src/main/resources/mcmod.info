@@ -1,0 +1,10 @@
+[
+	{
+		"modid": "rsmod",
+		"name": "rsmod",
+		"description": "Work in progress mod.",
+		"version": "${version}",
+		"mcversion": "${mcversion}"
+		"authorList": ["HetIsNiels"]
+	}
+]

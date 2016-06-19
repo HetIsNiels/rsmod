@@ -1,0 +1,64 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"model": "rsmod:pipe",
+	"transform": "forge:default-block",
+	"uvlock": true,
+	"textures": {
+	  "top": "rsmod:blocks/pipe",
+	  "particle": "rsmod:blocks/pipe",
+	  "side": "rsmod:blocks/pipe",
+	  "connection": "rsmod:blocks/pipe_connection"
+	}
+  },
+  "variants": {
+	"normal": [
+	  {}
+	],
+	"inventory": [
+	  {}
+	],
+	"north": {
+	  "true": {
+		"submodel": "rsmod:pipe_north"
+	  },
+	  "false": {
+	  }
+	},
+	"east": {
+	  "true": {
+		"submodel": "rsmod:pipe_east"
+	  },
+	  "false": {
+	  }
+	},
+	"south": {
+	  "true": {
+		"submodel": "rsmod:pipe_south"
+	  },
+	  "false": {
+	  }
+	},
+	"west": {
+	  "true": {
+		"submodel": "rsmod:pipe_west"
+	  },
+	  "false": {
+	  }
+	},
+	"up": {
+	  "true": {
+		"submodel": "rsmod:pipe_up"
+	  },
+	  "false": {
+	  }
+	},
+	"down": {
+	  "true": {
+		"submodel": "rsmod:pipe_down"
+	  },
+	  "false": {
+	  }
+	}
+  }
+}

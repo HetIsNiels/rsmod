@@ -1,0 +1,19 @@
+{
+  "elements": [
+	{ "from": [ 4, 4, 4 ],
+	  "to": [ 12, 12, 12 ],
+	  "faces": {
+		"down": { "texture": "#top" },
+		"up": { "texture": "#top" },
+		"north": { "texture": "#side" },
+		"south": { "texture": "#side" },
+		"west":  { "texture": "#side" },
+		"east":  { "texture": "#side" }
+	  }
+	}
+  ],
+  "textures": {
+	"top": "examplemod:blocks/pipe",
+	"side": "examplemod:blocks/pipe"
+  }
+}
