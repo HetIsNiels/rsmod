@@ -9,21 +9,25 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.event.DrawBlockHighlightEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-class BlockPipe extends Block {
+class BlockPipe extends Block implements IBlockHighlight {
 	private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
 	private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
 	private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
@@ -46,6 +50,16 @@ class BlockPipe extends Block {
 		setUnlocalizedName(RSMod.MODID + ":pipe");
 		setRegistryName(RSMod.MODID, "pipe");
 		setCreativeTab(RSMod.CREATIVE_TAB);
+	}
+
+	@Override
+	public boolean hasTileEntity(IBlockState state) {
+		return true;
+	}
+
+	@Override
+	public TileEntity createTileEntity(World world, IBlockState state) {
+		return new TilePipe();
 	}
 
 	@Override
@@ -174,13 +188,11 @@ class BlockPipe extends Block {
 		return itemBlock;
 	}
 
-	public void drawBlockHighlight(DrawBlockHighlightEvent e) {
-		BlockPos blockPos = e.getTarget().getBlockPos();
-		Block block = e.getPlayer().worldObj.getBlockState(blockPos).getBlock();
-		IBlockState state = e.getPlayer().worldObj.getBlockState(blockPos).getActualState(e.getPlayer().worldObj, blockPos);
+	public boolean drawBlockHighlight(World world, EntityPlayer player, BlockPos blockPos, Block block, float partialTicks) {
+		IBlockState state = player.worldObj.getBlockState(blockPos).getActualState(world, blockPos);
 
 		if (!(block instanceof BlockPipe) || !(state.getBlock() instanceof BlockPipe))
-			return;
+			return false;
 
 		GL11.glEnable(GL11.GL_BLEND);
 		OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
@@ -189,34 +201,35 @@ class BlockPipe extends Block {
 		GL11.glDisable(GL11.GL_TEXTURE_2D);
 		GL11.glDepthMask(false);
 
-		double d0 = e.getPlayer().lastTickPosX + (e.getPlayer().posX - e.getPlayer().lastTickPosX) * (double) e.getPartialTicks();
-		double d1 = e.getPlayer().lastTickPosY + (e.getPlayer().posY - e.getPlayer().lastTickPosY) * (double) e.getPartialTicks();
-		double d2 = e.getPlayer().lastTickPosZ + (e.getPlayer().posZ - e.getPlayer().lastTickPosZ) * (double) e.getPartialTicks();
+		double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
+		double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
+		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 
 
-		RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+		RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(NORTH))
-			RenderGlobal.drawSelectionBoundingBox(AABB_NORTH.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_NORTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(EAST))
-			RenderGlobal.drawSelectionBoundingBox(AABB_EAST.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_EAST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(SOUTH))
-			RenderGlobal.drawSelectionBoundingBox(AABB_SOUTH.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_SOUTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(WEST))
-			RenderGlobal.drawSelectionBoundingBox(AABB_WEST.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_WEST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(UP))
-			RenderGlobal.drawSelectionBoundingBox(AABB_UP.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_UP.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(DOWN))
-			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.01).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
-		e.setCanceled(true);
+
+		return true;
 	}
 }
