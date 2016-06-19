@@ -11,9 +11,5 @@
 		"east":  { "texture": "#side" }
 	  }
 	}
-  ],
-  "textures": {
-	"top": "examplemod:blocks/pipe",
-	"side": "examplemod:blocks/pipe"
-  }
+  ]
 }

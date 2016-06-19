@@ -43,7 +43,7 @@ class BlockPipe extends Block {
 		super(blockMaterialIn, blockMapColorIn);
 
 		setHardness(0.8F);
-		setUnlocalizedName(RSMod.MODID + ".pipe");
+		setUnlocalizedName(RSMod.MODID + ":pipe");
 		setRegistryName(RSMod.MODID, "pipe");
 		setCreativeTab(RSMod.CREATIVE_TAB);
 	}

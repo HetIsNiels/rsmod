@@ -17,6 +17,11 @@ public class CreativeTab extends CreativeTabs {
 		return true;
 	}
 
+	@Override
+	public String getBackgroundImageName() {
+		return CreativeTabs.SEARCH.getBackgroundImageName();
+	}
+
 	public void setTabIconItem(Item tabIconItem) {
 		this.tabIconItem = tabIconItem;
 	}
