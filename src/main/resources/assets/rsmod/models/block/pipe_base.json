@@ -4,31 +4,31 @@
 	  "from": [
 		4,
 		4,
-		0
+		4
 	  ],
 	  "to": [
 		12,
 		12,
-		4
+		12
 	  ],
 	  "faces": {
 		"down": {
-		  "texture": "#top"
+		  "texture": "#connection"
 		},
 		"up": {
-		  "texture": "#top"
+		  "texture": "#connection"
 		},
 		"north": {
-		  "texture": "#side"
+		  "texture": "#connection"
 		},
 		"south": {
 		  "texture": "#connection"
 		},
 		"west": {
-		  "texture": "#side"
+		  "texture": "#connection"
 		},
 		"east": {
-		  "texture": "#side"
+		  "texture": "#connection"
 		}
 	  }
 	}
