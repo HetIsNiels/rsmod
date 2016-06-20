@@ -16,7 +16,7 @@
 		  "texture": "#connection"
 		},
 		"up": {
-		  "texture": "#top"
+		  "texture": "#connection"
 		},
 		"north": {
 		  "texture": "#side"

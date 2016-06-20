@@ -6,10 +6,8 @@ import net.minecraft.item.Item;
 public class CreativeTab extends CreativeTabs {
 	private Item tabIconItem;
 
-	public CreativeTab(Item tabIconItem, String label) {
+	public CreativeTab(String label) {
 		super(label);
-
-		this.tabIconItem = tabIconItem;
 	}
 
 	@Override

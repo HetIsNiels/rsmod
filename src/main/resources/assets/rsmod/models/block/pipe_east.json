@@ -16,7 +16,7 @@
 		  "texture": "#top"
 		},
 		"up": {
-		  "texture": "#top"
+		  "texture": "#side"
 		},
 		"north": {
 		  "texture": "#side"
@@ -28,7 +28,7 @@
 		  "texture": "#connection"
 		},
 		"east": {
-		  "texture": "#side"
+		  "texture": "#connection"
 		}
 	  }
 	}

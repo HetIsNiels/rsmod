@@ -1,4 +1,4 @@
-package nl.hetisniels.rsmod;
+package nl.hetisniels.rsmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -6,8 +6,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -21,13 +23,16 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
+import nl.hetisniels.rsmod.RSMod;
+import nl.hetisniels.rsmod.tile.TilePipe;
 import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-class BlockPipe extends Block implements IBlockHighlight {
+public class BlockPipe extends Block implements IBlockHighlight {
 	private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
 	private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
 	private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
@@ -42,10 +47,15 @@ class BlockPipe extends Block implements IBlockHighlight {
 	public static final PropertyBool WEST = PropertyBool.create("west");
 	public static final PropertyBool UP = PropertyBool.create("up");
 	public static final PropertyBool DOWN = PropertyBool.create("down");
+	private String unlocalizedName;
 
-	BlockPipe(Material blockMaterialIn, MapColor blockMapColorIn) {
+	public BlockPipe(Material blockMaterialIn, MapColor blockMapColorIn) {
 		super(blockMaterialIn, blockMapColorIn);
 
+		this.setup();
+	}
+
+	protected void setup(){
 		setHardness(0.8F);
 		setUnlocalizedName(RSMod.MODID + ":pipe");
 		setRegistryName(RSMod.MODID, "pipe");
@@ -118,6 +128,11 @@ class BlockPipe extends Block implements IBlockHighlight {
 		return true;
 	}
 
+	@Override
+	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
+		return false;
+	}
+
 	@Nullable
 	@Override
 	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d origin, Vec3d direction) {
@@ -181,9 +196,24 @@ class BlockPipe extends Block implements IBlockHighlight {
 		return super.getBoundingBox(state, source, pos);
 	}
 
-	public Item createItemForBlock() {
+	@Override
+	public Block setUnlocalizedName(String unlocalizedName) {
+		this.unlocalizedName = unlocalizedName;
+
+		return this;
+	}
+
+	@Override
+	public String getUnlocalizedName() {
+		return this.unlocalizedName;
+	}
+
+	public Item registerItemForBlock() {
 		ItemBlock itemBlock = new ItemBlock(this);
 		itemBlock.setRegistryName(this.getRegistryName());
+
+		GameRegistry.register(itemBlock);
+		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBlock, 0, new ModelResourceLocation(getUnlocalizedName(), "inventory"));
 
 		return itemBlock;
 	}

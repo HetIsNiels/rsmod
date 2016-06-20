@@ -1,0 +1,74 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+	"model": "rsmod:pipe_base",
+	"transform": "forge:default-block",
+	"uvlock": true,
+	"textures": {
+	  "top": "rsmod:blocks/pipe_wood",
+	  "particle": "rsmod:blocks/pipe_wood",
+	  "side": "rsmod:blocks/pipe_wood",
+	  "connection": "rsmod:blocks/pipe_connection"
+	}
+  },
+  "variants": {
+	"normal": [
+	  {
+		"model": "rsmod:pipe"
+	  }
+	],
+	"inventory": [
+	  {
+		"model": "rsmod:pipe"
+	  }
+	],
+	"north": {
+	  "true": {
+		"submodel": "rsmod:pipe_north"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_north_top"
+	  }
+	},
+	"east": {
+	  "true": {
+		"submodel": "rsmod:pipe_east"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_east_top"
+	  }
+	},
+	"south": {
+	  "true": {
+		"submodel": "rsmod:pipe_south"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_south_top"
+	  }
+	},
+	"west": {
+	  "true": {
+		"submodel": "rsmod:pipe_west"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_west_top"
+	  }
+	},
+	"up": {
+	  "true": {
+		"submodel": "rsmod:pipe_up"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_up_top"
+	  }
+	},
+	"down": {
+	  "true": {
+		"submodel": "rsmod:pipe_down"
+	  },
+	  "false": {
+		"submodel": "rsmod:pipe_down_top"
+	  }
+	}
+  }
+}

@@ -1,12 +1,9 @@
 package nl.hetisniels.rsmod;
 
-import ibxm.Player;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
@@ -23,26 +20,32 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import nl.hetisniels.rsmod.block.BlockPipe;
+import nl.hetisniels.rsmod.block.BlockPipeWood;
+import nl.hetisniels.rsmod.block.IBlockHighlight;
+import nl.hetisniels.rsmod.render.RendererPipe;
+import nl.hetisniels.rsmod.tile.TilePipe;
 
 @Mod(modid = RSMod.MODID, version = RSMod.VERSION)
 public class RSMod {
 	public static final String MODID = "rsmod";
 	public static final String VERSION = "1.0";
-	public static final CreativeTab CREATIVE_TAB = new CreativeTab(null, MODID);
+	public static final CreativeTab CREATIVE_TAB = new CreativeTab(MODID);
 	public static final SimpleNetworkWrapper NETWORK_WRAPPER = NetworkRegistry.INSTANCE.newSimpleChannel(MODID);
 	public static int NETWORK_ID = 0;
 
 	@EventHandler
 	public void init(FMLInitializationEvent event) {
-		BlockPipe block = new BlockPipe(Material.GLASS, MapColor.CLOTH);
-		Item blockItem = block.createItemForBlock();
-		CREATIVE_TAB.setTabIconItem(blockItem);
+		BlockPipe block = new BlockPipe(Material.ROCK, MapColor.STONE);
+		CREATIVE_TAB.setTabIconItem(block.registerItemForBlock());
 		GameRegistry.<Block>register(block);
-		GameRegistry.register(blockItem);
+
+		block = new BlockPipeWood(Material.WOOD, MapColor.WOOD);
+		block.registerItemForBlock();
+		GameRegistry.register(block);
+
 		MinecraftForge.EVENT_BUS.register(this);
 		GameRegistry.registerTileEntity(TilePipe.class, MODID);
-
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(blockItem, 0, new ModelResourceLocation(MODID + ":pipe", "inventory"));
 
 		ClientRegistry.bindTileEntitySpecialRenderer(TilePipe.class, new RendererPipe());
 		NETWORK_WRAPPER.registerMessage(PipeDataMessage.class, PipeDataMessage.class, NETWORK_ID++, Side.CLIENT);

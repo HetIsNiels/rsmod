@@ -1,4 +1,4 @@
-package nl.hetisniels.rsmod;
+package nl.hetisniels.rsmod.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;

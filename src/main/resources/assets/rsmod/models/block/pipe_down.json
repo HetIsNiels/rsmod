@@ -13,7 +13,7 @@
 	  ],
 	  "faces": {
 		"down": {
-		  "texture": "#top"
+		  "texture": "#connection"
 		},
 		"up": {
 		  "texture": "#connection"

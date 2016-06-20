@@ -1,3 +1,4 @@
 itemGroup.rsmod=RS Mod
 
-tile.rsmod:pipe.name=Pipe
+rsmod:pipe.name=Stone pipe
+rsmod:pipe_wood.name=Wooden pipe

@@ -1,14 +1,14 @@
-package nl.hetisniels.rsmod;
+package nl.hetisniels.rsmod.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import nl.hetisniels.rsmod.PipeDataMessage;
+import nl.hetisniels.rsmod.RSMod;
 
 public class TilePipe extends TileEntity {
 	private ItemStackHandler buffer;

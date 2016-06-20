@@ -1,4 +1,4 @@
-package nl.hetisniels.rsmod;
+package nl.hetisniels.rsmod.render;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import nl.hetisniels.rsmod.tile.TilePipe;
 
 public class RendererPipe extends TileEntitySpecialRenderer<TilePipe> {
 	private RenderItem itemRenderer;
