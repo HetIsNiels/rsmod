@@ -1,20 +1,20 @@
 {
   "forge_marker": 1,
   "defaults": {
-	"model": "rsmod:pipe_base",
-	"transform": "forge:default-block",
-	"uvlock": true,
 	"textures": {
 	  "top": "rsmod:blocks/pipe_wood",
 	  "particle": "rsmod:blocks/pipe_wood",
 	  "side": "rsmod:blocks/pipe_wood",
 	  "connection": "rsmod:blocks/pipe_connection"
-	}
+	},
+	"model": "rsmod:pipe_base",
+	"uvlock": true
   },
   "variants": {
 	"inventory": [
 	  {
-		"model": "rsmod:pipe"
+		"model": "rsmod:pipe",
+		"transform": "forge:default-block"
 	  }
 	],
 	"north": {

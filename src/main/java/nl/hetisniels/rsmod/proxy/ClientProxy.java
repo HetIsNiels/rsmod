@@ -3,9 +3,7 @@ package nl.hetisniels.rsmod.proxy;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import nl.hetisniels.rsmod.RSMod;
 import nl.hetisniels.rsmod.event.drawBlockHighlightEventHandler;
 import nl.hetisniels.rsmod.render.RendererPipe;
 import nl.hetisniels.rsmod.tile.TilePipe;
@@ -23,12 +21,5 @@ public class ClientProxy extends CommonProxy {
 		super.init(e);
 
 		MinecraftForge.EVENT_BUS.register(new drawBlockHighlightEventHandler());
-	}
-
-	@Override
-	public void postInit(FMLPostInitializationEvent e) {
-		super.postInit(e);
-
-		//RSMod.CREATIVE_TAB.setTabIconItem(RSModItems.pipe);
 	}
 }

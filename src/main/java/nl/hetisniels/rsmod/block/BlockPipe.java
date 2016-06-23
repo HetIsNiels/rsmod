@@ -60,7 +60,7 @@ public class BlockPipe extends BlockBase implements IBlockHighlight {
 
 	@Override
 	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.CUTOUT;
+		return BlockRenderLayer.TRANSLUCENT;
 	}
 
 	@Override

@@ -3,14 +3,15 @@ package nl.hetisniels.rsmod;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import nl.hetisniels.rsmod.block.BlockBase;
 
 public class CreativeTab extends CreativeTabs {
 	private Item tabIconItem;
 
-	public CreativeTab(String label) {
+	public CreativeTab(String label, Item tabIconItem) {
 		super(label);
 
-		this.tabIconItem = Items.EGG;
+		this.tabIconItem = tabIconItem;
 	}
 
 	@Override
@@ -21,10 +22,6 @@ public class CreativeTab extends CreativeTabs {
 	@Override
 	public String getBackgroundImageName() {
 		return CreativeTabs.SEARCH.getBackgroundImageName();
-	}
-
-	public void setTabIconItem(Item tabIconItem) {
-		this.tabIconItem = tabIconItem;
 	}
 
 	@Override

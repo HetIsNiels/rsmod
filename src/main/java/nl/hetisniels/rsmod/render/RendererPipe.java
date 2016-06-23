@@ -8,15 +8,12 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.hetisniels.rsmod.tile.TilePipe;
 
 public class RendererPipe extends TileEntitySpecialRenderer<TilePipe> {
-	private RenderItem itemRenderer;
-
-	public RendererPipe() {
-		this.itemRenderer = Minecraft.getMinecraft().getRenderItem();
-	}
-
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void renderTileEntityAt(TilePipe pipe, double x, double y, double z, float partialTicks, int destroyStage) {
 		ItemStack[] itemStacks = pipe.getCurrentItemStacks();
@@ -32,7 +29,7 @@ public class RendererPipe extends TileEntitySpecialRenderer<TilePipe> {
 			GlStateManager.pushAttrib();
 
 			RenderHelper.enableStandardItemLighting();
-			this.itemRenderer.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
+			Minecraft.getMinecraft().getRenderItem().renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
 			RenderHelper.disableStandardItemLighting();
 
 			GlStateManager.popAttrib();
