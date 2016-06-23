@@ -1,6 +1,7 @@
 package nl.hetisniels.rsmod.block;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.ITileEntityProvider;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +26,7 @@ import org.lwjgl.opengl.GL11;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockPipe extends BlockBase implements IBlockHighlight {
+public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntityProvider {
 	private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
 	private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
 	private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
@@ -194,7 +195,8 @@ public class BlockPipe extends BlockBase implements IBlockHighlight {
 		double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
 		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 
-		RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+		//fixme when mappings are updated
+		/*RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(NORTH))
 			RenderGlobal.drawSelectionBoundingBox(AABB_NORTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
@@ -212,12 +214,17 @@ public class BlockPipe extends BlockBase implements IBlockHighlight {
 			RenderGlobal.drawSelectionBoundingBox(AABB_UP.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(DOWN))
-			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));*/
 
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
 
 		return true;
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World world, int i) {
+		return new TilePipe();
 	}
 }

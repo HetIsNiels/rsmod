@@ -20,7 +20,7 @@ public class RSMod {
 	@SidedProxy(clientSide = "nl.hetisniels.rsmod.proxy.ClientProxy", serverSide = "nl.hetisniels.rsmod.proxy.ServerProxy")
 	public static CommonProxy PROXY;
 	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(ID);
-	public static final CreativeTab CREATIVE_TAB = new CreativeTab(ID, RSModBlocks.PIPE.getAsItem());
+	public static final CreativeTab CREATIVE_TAB = new CreativeTab(ID);
 
 	@Instance
 	public static RSMod INSTANCE;

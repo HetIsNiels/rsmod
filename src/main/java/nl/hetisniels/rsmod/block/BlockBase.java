@@ -3,20 +3,22 @@ package nl.hetisniels.rsmod.block;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.util.EnumBlockRenderType;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import nl.hetisniels.rsmod.RSMod;
 import nl.hetisniels.rsmod.item.ItemBlockBase;
+import nl.hetisniels.rsmod.tile.TileBase;
 
 public abstract class BlockBase extends Block {
 	private final String name;
-	private ItemBlock itemBlock;
+	private ItemBlockBase itemBlock;
 
 	public BlockBase(String name) {
 		super(Material.ROCK);
 
 		this.name = name;
+
 		setRegistryName(RSMod.ID, name);
 	}
 
@@ -29,7 +31,7 @@ public abstract class BlockBase extends Block {
 		return "block." + RSMod.ID + ":" + name;
 	}
 
-	public Item getAsItem() {
+	public ItemBlockBase getAsItem() {
 		if(this.itemBlock == null)
 			this.itemBlock = new ItemBlockBase(this);
 
@@ -37,7 +39,15 @@ public abstract class BlockBase extends Block {
 	}
 
 	@Override
-	public EnumBlockRenderType getRenderType(IBlockState p_getRenderType_1_) {
-		return EnumBlockRenderType.MODEL;
+	public void breakBlock(World world, BlockPos pos, IBlockState state) {
+		TileEntity tileEntity = world.getTileEntity(pos);
+
+		if(tileEntity instanceof TileBase){
+			TileBase tileBase = (TileBase) tileEntity;
+
+			tileBase.dropItems(world, pos);
+		}
+
+		super.breakBlock(world, pos, state);
 	}
 }

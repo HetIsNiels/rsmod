@@ -1,5 +1,6 @@
 package nl.hetisniels.rsmod.tile;
 
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -7,6 +8,7 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
@@ -94,5 +96,15 @@ public class TilePipe extends TileBase {
 
 	public void setItems(ItemStack[] itemStacks) {
 		this.buffer = new ItemStackHandler(itemStacks);
+	}
+
+	@Override
+	public void dropItems(World world, BlockPos pos) {
+		for (int i = 0; i < this.buffer.getSlots(); i++) {
+			if (this.buffer.getStackInSlot(i) != null) {
+				InventoryHelper.spawnItemStack(world, pos.getX(), pos.getY(), pos.getZ(), this.buffer.getStackInSlot(i));
+				this.buffer.setStackInSlot(i, null);
+			}
+		}
 	}
 }

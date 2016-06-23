@@ -8,10 +8,8 @@ import nl.hetisniels.rsmod.block.BlockBase;
 public class CreativeTab extends CreativeTabs {
 	private Item tabIconItem;
 
-	public CreativeTab(String label, Item tabIconItem) {
+	public CreativeTab(String label) {
 		super(label);
-
-		this.tabIconItem = tabIconItem;
 	}
 
 	@Override
@@ -27,5 +25,9 @@ public class CreativeTab extends CreativeTabs {
 	@Override
 	public Item getTabIconItem() {
 		return this.tabIconItem;
+	}
+
+	public void setTabIconItem(Item tabIconItem) {
+		this.tabIconItem = tabIconItem;
 	}
 }
