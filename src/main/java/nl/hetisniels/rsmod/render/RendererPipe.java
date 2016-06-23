@@ -25,10 +25,6 @@ public class RendererPipe extends TileEntitySpecialRenderer<TilePipe> {
 			if (itemStack == null)
 				continue;
 
-			EntityItem entityitem = new EntityItem(pipe.getWorld(), 0, 0, 0, itemStack);
-			entityitem.getEntityItem().stackSize = 1;
-			entityitem.hoverStart = 0.0F;
-
 			GlStateManager.pushMatrix();
 			GlStateManager.translate(x + 0.5d, y + 0.5d, z + 0.5d);
 			GlStateManager.disableLighting();
@@ -36,7 +32,7 @@ public class RendererPipe extends TileEntitySpecialRenderer<TilePipe> {
 			GlStateManager.pushAttrib();
 
 			RenderHelper.enableStandardItemLighting();
-			this.itemRenderer.renderItem(entityitem.getEntityItem(), ItemCameraTransforms.TransformType.FIXED);
+			this.itemRenderer.renderItem(itemStack, ItemCameraTransforms.TransformType.FIXED);
 			RenderHelper.disableStandardItemLighting();
 
 			GlStateManager.popAttrib();

@@ -1,6 +1,7 @@
 package nl.hetisniels.rsmod;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 public class CreativeTab extends CreativeTabs {
@@ -8,6 +9,8 @@ public class CreativeTab extends CreativeTabs {
 
 	public CreativeTab(String label) {
 		super(label);
+
+		this.tabIconItem = Items.EGG;
 	}
 
 	@Override

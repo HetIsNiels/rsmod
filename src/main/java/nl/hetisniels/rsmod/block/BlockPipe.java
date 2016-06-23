@@ -1,19 +1,13 @@
 package nl.hetisniels.rsmod.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.material.MapColor;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderGlobal;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
@@ -23,7 +17,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.items.CapabilityItemHandler;
 import nl.hetisniels.rsmod.RSMod;
 import nl.hetisniels.rsmod.tile.TilePipe;
@@ -32,7 +25,7 @@ import org.lwjgl.opengl.GL11;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class BlockPipe extends Block implements IBlockHighlight {
+public class BlockPipe extends BlockBase implements IBlockHighlight {
 	private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
 	private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
 	private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
@@ -41,24 +34,17 @@ public class BlockPipe extends Block implements IBlockHighlight {
 	private static final AxisAlignedBB AABB_UP = new AxisAlignedBB(4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F));
 	private static final AxisAlignedBB AABB_DOWN = new AxisAlignedBB(4 * (1F / 16F), 0 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F));
 
-	public static final PropertyBool NORTH = PropertyBool.create("north");
-	public static final PropertyBool EAST = PropertyBool.create("east");
-	public static final PropertyBool SOUTH = PropertyBool.create("south");
-	public static final PropertyBool WEST = PropertyBool.create("west");
-	public static final PropertyBool UP = PropertyBool.create("up");
-	public static final PropertyBool DOWN = PropertyBool.create("down");
-	private String unlocalizedName;
+	private static final PropertyBool NORTH = PropertyBool.create("north");
+	private static final PropertyBool EAST = PropertyBool.create("east");
+	private static final PropertyBool SOUTH = PropertyBool.create("south");
+	private static final PropertyBool WEST = PropertyBool.create("west");
+	private static final PropertyBool UP = PropertyBool.create("up");
+	private static final PropertyBool DOWN = PropertyBool.create("down");
 
-	public BlockPipe(Material blockMaterialIn, MapColor blockMapColorIn) {
-		super(blockMaterialIn, blockMapColorIn);
+	public BlockPipe(String name) {
+		super(name);
 
-		this.setup();
-	}
-
-	protected void setup(){
 		setHardness(0.8F);
-		setUnlocalizedName(RSMod.MODID + ":pipe");
-		setRegistryName(RSMod.MODID, "pipe");
 		setCreativeTab(RSMod.CREATIVE_TAB);
 	}
 
@@ -187,35 +173,8 @@ public class BlockPipe extends Block implements IBlockHighlight {
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
-		return true;
-	}
-
-	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return super.getBoundingBox(state, source, pos);
-	}
-
-	@Override
-	public Block setUnlocalizedName(String unlocalizedName) {
-		this.unlocalizedName = unlocalizedName;
-
-		return this;
-	}
-
-	@Override
-	public String getUnlocalizedName() {
-		return this.unlocalizedName;
-	}
-
-	public Item registerItemForBlock() {
-		ItemBlock itemBlock = new ItemBlock(this);
-		itemBlock.setRegistryName(this.getRegistryName());
-
-		GameRegistry.register(itemBlock);
-		Minecraft.getMinecraft().getRenderItem().getItemModelMesher().register(itemBlock, 0, new ModelResourceLocation(getUnlocalizedName(), "inventory"));
-
-		return itemBlock;
 	}
 
 	public boolean drawBlockHighlight(World world, EntityPlayer player, BlockPos blockPos, Block block, float partialTicks) {
@@ -234,7 +193,6 @@ public class BlockPipe extends Block implements IBlockHighlight {
 		double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
 		double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
 		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
-
 
 		RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 

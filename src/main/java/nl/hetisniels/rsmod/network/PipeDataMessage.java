@@ -1,12 +1,10 @@
-package nl.hetisniels.rsmod;
+package nl.hetisniels.rsmod.network;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
-import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import nl.hetisniels.rsmod.tile.TilePipe;
 
@@ -14,10 +12,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-/**
- * Created by nelis on 2016-06-19.
- */
-public class PipeDataMessage implements IMessage, IMessageHandler<PipeDataMessage, IMessage> {
+public class PipeDataMessage extends NetworkHelper<PipeDataMessage> {
 	private double x;
 	private double y;
 	private double z;
@@ -44,6 +39,7 @@ public class PipeDataMessage implements IMessage, IMessageHandler<PipeDataMessag
 
 		int items = buf.readInt();
 
+		this.items.clear();
 		for (int i = 0; i < items; ++i) {
 			boolean skip = buf.readBoolean();
 
@@ -82,15 +78,15 @@ public class PipeDataMessage implements IMessage, IMessageHandler<PipeDataMessag
 	}
 
 	@Override
-	public IMessage onMessage(PipeDataMessage message, MessageContext ctx) {
-		TilePipe pipe = (TilePipe) Minecraft.getMinecraft().thePlayer.worldObj.getTileEntity(new BlockPos(message.x, message.y, message.z));
+	public PipeDataMessage handleMessage(MessageContext context) {
+		TilePipe pipe = (TilePipe) Minecraft.getMinecraft().thePlayer.worldObj.getTileEntity(new BlockPos(this.x, this.y, this.z));
 
 		if (pipe == null) {
 			System.out.println("pipe is null!");
 			return null;
 		}
 
-		pipe.setItems(message.items.toArray(new ItemStack[message.items.size()]));
+		pipe.setItems(this.items.toArray(new ItemStack[this.items.size()]));
 
 		return null;
 	}

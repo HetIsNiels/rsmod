@@ -12,11 +12,6 @@
 	}
   },
   "variants": {
-	"normal": [
-	  {
-		"model": "rsmod:pipe"
-	  }
-	],
 	"inventory": [
 	  {
 		"model": "rsmod:pipe"

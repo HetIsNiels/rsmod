@@ -2,15 +2,23 @@ package nl.hetisniels.rsmod.tile;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import nl.hetisniels.rsmod.PipeDataMessage;
+import nl.hetisniels.rsmod.network.PipeDataMessage;
 import nl.hetisniels.rsmod.RSMod;
 
-public class TilePipe extends TileEntity {
+import javax.annotation.Nullable;
+
+public class TilePipe extends TileBase {
 	private ItemStackHandler buffer;
 
 	public TilePipe() {
@@ -19,8 +27,8 @@ public class TilePipe extends TileEntity {
 
 			@Override
 			protected void onContentsChanged(int slot) {
-				if (pipe != null){
-					RSMod.NETWORK_WRAPPER.sendToAll(new PipeDataMessage(this.pipe.getPos().getX(), this.pipe.getPos().getY(), this.pipe.getPos().getZ(), this.stacks));
+				if (pipe != null) {
+					pipe.sync();
 				}
 			}
 
@@ -31,6 +39,19 @@ public class TilePipe extends TileEntity {
 		}.bind(this);
 	}
 
+	public void sync() {
+		if (FMLCommonHandler.instance().getEffectiveSide() == Side.SERVER)
+			RSMod.NETWORK.sendToAll(new PipeDataMessage(this.getPos().getX(), this.getPos().getY(), this.getPos().getZ(), this.getCurrentItemStacks()));
+	}
+
+	@Nullable
+	@Override
+	public SPacketUpdateTileEntity getUpdatePacket() {
+		this.sync();
+
+		return super.getUpdatePacket();
+	}
+
 	public ItemStack[] getCurrentItemStacks() {
 		ItemStack[] itemStacks = new ItemStack[this.buffer.getSlots()];
 
@@ -39,11 +60,6 @@ public class TilePipe extends TileEntity {
 				itemStacks[i] = this.buffer.getStackInSlot(i);
 
 		return itemStacks;
-	}
-
-	@Override
-	public double getMaxRenderDistanceSquared() {
-		return 32 * 32;
 	}
 
 	@Override

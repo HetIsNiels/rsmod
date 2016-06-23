@@ -1,4 +1,4 @@
 itemGroup.rsmod=RS Mod
 
-rsmod:pipe.name=Stone pipe
-rsmod:pipe_wood.name=Wooden pipe
+block.rsmod:pipe.name=Stone pipe
+block.rsmod:pipe_wood.name=Wooden pipe
