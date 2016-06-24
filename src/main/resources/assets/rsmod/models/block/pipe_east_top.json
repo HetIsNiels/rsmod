@@ -1,8 +1,9 @@
 {
+  "ambientocclusion": false,
   "elements": [
 	{
 	  "from": [
-		4,
+		12,
 		4,
 		4
 	  ],
@@ -13,6 +14,9 @@
 	  ],
 	  "faces": {
 		"east": {
+		  "texture": "#top"
+		},
+		"west": {
 		  "texture": "#top"
 		}
 	  }

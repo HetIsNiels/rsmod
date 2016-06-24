@@ -196,6 +196,8 @@ public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntity
 		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 
 		//fixme when mappings are updated
+		//todo render own lines instead of multiple boxes
+
 		/*RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
 		if (state.getValue(NORTH))

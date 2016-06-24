@@ -1,9 +1,10 @@
 {
+  "ambientocclusion": false,
   "elements": [
 	{
 	  "from": [
 		4,
-		8,
+		12,
 		4
 	  ],
 	  "to": [
@@ -12,6 +13,9 @@
 		12
 	  ],
 	  "faces": {
+		"down": {
+		  "texture": "#top"
+		},
 		"up": {
 		  "texture": "#top"
 		}
