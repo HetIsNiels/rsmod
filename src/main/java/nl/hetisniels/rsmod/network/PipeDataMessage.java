@@ -86,7 +86,7 @@ public class PipeDataMessage extends NetworkHelper<PipeDataMessage> {
 			return null;
 		}
 
-		pipe.setItems(this.items.toArray(new ItemStack[this.items.size()]));
+		//pipe.setItems(this.items.toArray(new ItemStack[this.items.size()]));
 
 		return null;
 	}

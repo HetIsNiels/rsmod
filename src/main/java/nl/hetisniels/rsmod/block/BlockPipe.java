@@ -222,7 +222,7 @@ public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntity
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
 
-		return true;
+		return false; //fixme change to true when fixed
 	}
 
 	@Override
