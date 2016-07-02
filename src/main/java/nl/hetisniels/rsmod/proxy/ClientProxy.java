@@ -14,24 +14,24 @@ import nl.hetisniels.rsmod.event.drawBlockHighlightEventHandler;
 import nl.hetisniels.rsmod.render.RenderItemBasket;
 
 public class ClientProxy extends CommonProxy {
-	@Override
-	public void preInit(FMLPreInitializationEvent e) {
-		super.preInit(e);
+    @Override
+    public void preInit(FMLPreInitializationEvent e) {
+        super.preInit(e);
 
-		//ClientRegistry.bindTileEntitySpecialRenderer(TilePipe.class, new RendererPipe());
-		RenderingRegistry.registerEntityRenderingHandler(EntityItemBasket.class, new IRenderFactory<EntityItemBasket>() {
-			@Override
-			public Render<? super EntityItemBasket> createRenderFor(RenderManager renderManager) {
-				return new RenderItemBasket();
-			}
-		});
-	}
+        //ClientRegistry.bindTileEntitySpecialRenderer(TilePipe.class, new RendererPipe());
+        RenderingRegistry.registerEntityRenderingHandler(EntityItemBasket.class, new IRenderFactory<EntityItemBasket>() {
+            @Override
+            public Render<? super EntityItemBasket> createRenderFor(RenderManager renderManager) {
+                return new RenderItemBasket();
+            }
+        });
+    }
 
-	@Override
-	public void init(FMLInitializationEvent e) {
-		super.init(e);
+    @Override
+    public void init(FMLInitializationEvent e) {
+        super.init(e);
 
-		MinecraftForge.EVENT_BUS.register(new drawBlockHighlightEventHandler());
-		RSMod.CREATIVE_TAB.setTabIconItem(RSModBlocks.PIPE.getAsItem());
-	}
+        MinecraftForge.EVENT_BUS.register(new drawBlockHighlightEventHandler());
+        RSMod.CREATIVE_TAB.setTabIconItem(RSModBlocks.PIPE.getAsItem());
+    }
 }

@@ -12,21 +12,21 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import nl.hetisniels.rsmod.block.IBlockHighlight;
 
 public class drawBlockHighlightEventHandler {
-	@SideOnly(Side.CLIENT)
-	@SubscribeEvent
-	public void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
-		try {
-			EntityPlayer player = event.getPlayer();
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onDrawBlockHighlight(DrawBlockHighlightEvent event) {
+        try {
+            EntityPlayer player = event.getPlayer();
 
-			World world = player.worldObj;
-			BlockPos blockPos = event.getTarget().getBlockPos();
-			IBlockState state = world.getBlockState(blockPos);
-			Block block = state.getBlock();
+            World world = player.worldObj;
+            BlockPos blockPos = event.getTarget().getBlockPos();
+            IBlockState state = world.getBlockState(blockPos);
+            Block block = state.getBlock();
 
-			if (block instanceof IBlockHighlight)
-				event.setCanceled(((IBlockHighlight) block).drawBlockHighlight(world, player, blockPos, block, event.getPartialTicks()));
-		} catch (NullPointerException e) {
-			// do nothing, thrown because the player looked at an entity
-		}
-	}
+            if (block instanceof IBlockHighlight)
+                event.setCanceled(((IBlockHighlight) block).drawBlockHighlight(world, player, blockPos, block, event.getPartialTicks()));
+        } catch (NullPointerException e) {
+            // do nothing, thrown because the player looked at an entity
+        }
+    }
 }

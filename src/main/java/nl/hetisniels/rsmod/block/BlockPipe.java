@@ -27,176 +27,176 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntityProvider {
-	private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
-	private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
-	private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
-	private static final AxisAlignedBB AABB_SOUTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 16 * (1F / 16F));
-	private static final AxisAlignedBB AABB_WEST = new AxisAlignedBB(0 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
-	private static final AxisAlignedBB AABB_UP = new AxisAlignedBB(4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F));
-	private static final AxisAlignedBB AABB_DOWN = new AxisAlignedBB(4 * (1F / 16F), 0 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F));
+    private static final AxisAlignedBB AABB_BASE = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
+    private static final AxisAlignedBB AABB_NORTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 0 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F));
+    private static final AxisAlignedBB AABB_EAST = new AxisAlignedBB(12 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
+    private static final AxisAlignedBB AABB_SOUTH = new AxisAlignedBB(4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F), 16 * (1F / 16F));
+    private static final AxisAlignedBB AABB_WEST = new AxisAlignedBB(0 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 12 * (1F / 16F));
+    private static final AxisAlignedBB AABB_UP = new AxisAlignedBB(4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 16 * (1F / 16F), 12 * (1F / 16F));
+    private static final AxisAlignedBB AABB_DOWN = new AxisAlignedBB(4 * (1F / 16F), 0 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F), 4 * (1F / 16F), 12 * (1F / 16F));
 
-	private static final PropertyBool NORTH = PropertyBool.create("north");
-	private static final PropertyBool EAST = PropertyBool.create("east");
-	private static final PropertyBool SOUTH = PropertyBool.create("south");
-	private static final PropertyBool WEST = PropertyBool.create("west");
-	private static final PropertyBool UP = PropertyBool.create("up");
-	private static final PropertyBool DOWN = PropertyBool.create("down");
+    private static final PropertyBool NORTH = PropertyBool.create("north");
+    private static final PropertyBool EAST = PropertyBool.create("east");
+    private static final PropertyBool SOUTH = PropertyBool.create("south");
+    private static final PropertyBool WEST = PropertyBool.create("west");
+    private static final PropertyBool UP = PropertyBool.create("up");
+    private static final PropertyBool DOWN = PropertyBool.create("down");
 
-	public BlockPipe(String name) {
-		super(name);
+    public BlockPipe(String name) {
+        super(name);
 
-		setHardness(0.8F);
-		setCreativeTab(RSMod.CREATIVE_TAB);
-	}
+        setHardness(0.8F);
+        setCreativeTab(RSMod.CREATIVE_TAB);
+    }
 
-	@Override
-	public boolean hasTileEntity(IBlockState state) {
-		return true;
-	}
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
+    }
 
-	@Override
-	public TileEntity createTileEntity(World world, IBlockState state) {
-		return new TilePipe();
-	}
+    @Override
+    public TileEntity createTileEntity(World world, IBlockState state) {
+        return new TilePipe();
+    }
 
-	@Override
-	public BlockRenderLayer getBlockLayer() {
-		return BlockRenderLayer.TRANSLUCENT;
-	}
+    @Override
+    public BlockRenderLayer getBlockLayer() {
+        return BlockRenderLayer.TRANSLUCENT;
+    }
 
-	@Override
-	public IBlockState getStateFromMeta(int meta) {
-		return getDefaultState();
-	}
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState();
+    }
 
-	@Override
-	public int getMetaFromState(IBlockState state) {
-		return 0;
-	}
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return 0;
+    }
 
-	@Override
-	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, NORTH,
-				EAST,
-				SOUTH,
-				WEST,
-				UP,
-				DOWN);
-	}
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, NORTH,
+                EAST,
+                SOUTH,
+                WEST,
+                UP,
+                DOWN);
+    }
 
-	@Override
-	public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return state.withProperty(NORTH, hasConnectionWith(world, pos.north(), EnumFacing.SOUTH))
-				.withProperty(EAST, hasConnectionWith(world, pos.east(), EnumFacing.WEST))
-				.withProperty(SOUTH, hasConnectionWith(world, pos.south(), EnumFacing.NORTH))
-				.withProperty(WEST, hasConnectionWith(world, pos.west(), EnumFacing.EAST))
-				.withProperty(UP, hasConnectionWith(world, pos.up(), EnumFacing.DOWN))
-				.withProperty(DOWN, hasConnectionWith(world, pos.down(), EnumFacing.UP));
-	}
+    @Override
+    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return state.withProperty(NORTH, hasConnectionWith(world, pos.north(), EnumFacing.SOUTH))
+                .withProperty(EAST, hasConnectionWith(world, pos.east(), EnumFacing.WEST))
+                .withProperty(SOUTH, hasConnectionWith(world, pos.south(), EnumFacing.NORTH))
+                .withProperty(WEST, hasConnectionWith(world, pos.west(), EnumFacing.EAST))
+                .withProperty(UP, hasConnectionWith(world, pos.up(), EnumFacing.DOWN))
+                .withProperty(DOWN, hasConnectionWith(world, pos.down(), EnumFacing.UP));
+    }
 
-	private static boolean hasConnectionWith(IBlockAccess world, BlockPos pos, EnumFacing facing) {
-		return (world.getBlockState(pos).getBlock().hasTileEntity() &&
-				world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) ||
-				world.getBlockState(pos).getBlock() instanceof BlockPipe;
-	}
+    private static boolean hasConnectionWith(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        return (world.getBlockState(pos).getBlock().hasTileEntity() &&
+                world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing)) ||
+                world.getBlockState(pos).getBlock() instanceof BlockPipe;
+    }
 
-	@Override
-	public boolean isOpaqueCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    public boolean isOpaqueCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
+    @Override
+    public boolean isFullCube(IBlockState state) {
+        return false;
+    }
 
-	@Override
-	public boolean isTranslucent(IBlockState state) {
-		return true;
-	}
+    @Override
+    public boolean isTranslucent(IBlockState state) {
+        return true;
+    }
 
-	@Override
-	public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
-		return false;
-	}
+    @Override
+    public boolean isNormalCube(IBlockState state, IBlockAccess world, BlockPos pos) {
+        return false;
+    }
 
-	@Nullable
-	@Override
-	public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d origin, Vec3d direction) {
-		state = getActualState(state, world, pos);
+    @Nullable
+    @Override
+    public RayTraceResult collisionRayTrace(IBlockState state, World world, BlockPos pos, Vec3d origin, Vec3d direction) {
+        state = getActualState(state, world, pos);
 
-		RayTraceResult result = AABB_BASE.expandXyz(0.01).offset(pos).calculateIntercept(origin, direction);
+        RayTraceResult result = AABB_BASE.expandXyz(0.01).offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(NORTH))
-			result = AABB_NORTH.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(NORTH))
+            result = AABB_NORTH.offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(EAST))
-			result = AABB_EAST.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(EAST))
+            result = AABB_EAST.offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(SOUTH))
-			result = AABB_SOUTH.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(SOUTH))
+            result = AABB_SOUTH.offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(WEST))
-			result = AABB_WEST.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(WEST))
+            result = AABB_WEST.offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(UP))
-			result = AABB_UP.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(UP))
+            result = AABB_UP.offset(pos).calculateIntercept(origin, direction);
 
-		if (result == null && state.getValue(DOWN))
-			result = AABB_DOWN.offset(pos).calculateIntercept(origin, direction);
+        if (result == null && state.getValue(DOWN))
+            result = AABB_DOWN.offset(pos).calculateIntercept(origin, direction);
 
-		return result == null ? null : new RayTraceResult(result.hitVec.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), result.sideHit, pos);
-	}
+        return result == null ? null : new RayTraceResult(result.hitVec.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), result.sideHit, pos);
+    }
 
-	@Override
-	public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entity) {
-		state = getActualState(state, world, pos);
+    @Override
+    public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entity) {
+        state = getActualState(state, world, pos);
 
-		addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BASE);
+        addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_BASE);
 
-		if (state.getValue(NORTH))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_NORTH);
+        if (state.getValue(NORTH))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_NORTH);
 
-		if (state.getValue(EAST))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_EAST);
+        if (state.getValue(EAST))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_EAST);
 
-		if (state.getValue(SOUTH))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_SOUTH);
+        if (state.getValue(SOUTH))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_SOUTH);
 
-		if (state.getValue(WEST))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WEST);
+        if (state.getValue(WEST))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_WEST);
 
-		if (state.getValue(UP))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_UP);
+        if (state.getValue(UP))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_UP);
 
-		if (state.getValue(DOWN))
-			addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_DOWN);
-	}
+        if (state.getValue(DOWN))
+            addCollisionBoxToList(pos, entityBox, collidingBoxes, AABB_DOWN);
+    }
 
-	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return super.getBoundingBox(state, source, pos);
-	}
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return super.getBoundingBox(state, source, pos);
+    }
 
-	public boolean drawBlockHighlight(World world, EntityPlayer player, BlockPos blockPos, Block block, float partialTicks) {
-		IBlockState state = player.worldObj.getBlockState(blockPos).getActualState(world, blockPos);
+    public boolean drawBlockHighlight(World world, EntityPlayer player, BlockPos blockPos, Block block, float partialTicks) {
+        IBlockState state = player.worldObj.getBlockState(blockPos).getActualState(world, blockPos);
 
-		if (!(block instanceof BlockPipe) || !(state.getBlock() instanceof BlockPipe))
-			return false;
+        if (!(block instanceof BlockPipe) || !(state.getBlock() instanceof BlockPipe))
+            return false;
 
-		GL11.glEnable(GL11.GL_BLEND);
-		OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
-		GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.4F);
-		GL11.glLineWidth(2.0F);
-		GL11.glDisable(GL11.GL_TEXTURE_2D);
-		GL11.glDepthMask(false);
+        GL11.glEnable(GL11.GL_BLEND);
+        OpenGlHelper.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA, GL11.GL_ONE, GL11.GL_ZERO);
+        GL11.glColor4f(0.0F, 0.0F, 0.0F, 0.4F);
+        GL11.glLineWidth(2.0F);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDepthMask(false);
 
-		double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
-		double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
-		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
+        double d0 = player.lastTickPosX + (player.posX - player.lastTickPosX) * (double) partialTicks;
+        double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
+        double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 
-		//fixme when mappings are updated
-		//todo render own lines instead of multiple boxes
+        //fixme when mappings are updated
+        //todo render own lines instead of multiple boxes
 
 		/*RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
 
@@ -218,15 +218,15 @@ public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntity
 		if (state.getValue(DOWN))
 			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));*/
 
-		GL11.glDepthMask(true);
-		GL11.glEnable(GL11.GL_TEXTURE_2D);
-		GL11.glDisable(GL11.GL_BLEND);
+        GL11.glDepthMask(true);
+        GL11.glEnable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_BLEND);
 
-		return false; //fixme change to true when fixed
-	}
+        return false; //fixme change to true when fixed
+    }
 
-	@Override
-	public TileEntity createNewTileEntity(World world, int i) {
-		return new TilePipe();
-	}
+    @Override
+    public TileEntity createNewTileEntity(World world, int i) {
+        return new TilePipe();
+    }
 }
