@@ -6,20 +6,20 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 public abstract class NetworkHelper<self extends NetworkHelper> implements IMessage, IMessageHandler<self, IMessage> {
-    @Override
-    public abstract void fromBytes(ByteBuf buf);
+	@Override
+	public abstract void fromBytes(ByteBuf buf);
 
-    @Override
-    public abstract void toBytes(ByteBuf buf);
+	@Override
+	public abstract void toBytes(ByteBuf buf);
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public self onMessage(self message, MessageContext context) {
-        if (message != this)
-            return (self) message.onMessage(message, context);
+	@SuppressWarnings("unchecked")
+	@Override
+	public self onMessage(self message, MessageContext context) {
+		if (message != this)
+			return (self) message.onMessage(message, context);
 
-        return this.handleMessage(context);
-    }
+		return this.handleMessage(context);
+	}
 
-    public abstract self handleMessage(MessageContext context);
+	public abstract self handleMessage(MessageContext context);
 }
