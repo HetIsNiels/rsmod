@@ -6,6 +6,7 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.OpenGlHelper;
+import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -194,34 +195,31 @@ public class BlockPipe extends BlockBase implements IBlockHighlight, ITileEntity
 		double d1 = player.lastTickPosY + (player.posY - player.lastTickPosY) * (double) partialTicks;
 		double d2 = player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * (double) partialTicks;
 
-		//fixme when mappings are updated
-		//todo render own lines instead of multiple boxes
-
-		/*RenderGlobal.drawSelectionBoundingBox(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+		RenderGlobal.func_189697_a(AABB_BASE.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(NORTH))
-			RenderGlobal.drawSelectionBoundingBox(AABB_NORTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.func_189697_a(AABB_NORTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(EAST))
-			RenderGlobal.drawSelectionBoundingBox(AABB_EAST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.func_189697_a(AABB_EAST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(SOUTH))
-			RenderGlobal.drawSelectionBoundingBox(AABB_SOUTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.func_189697_a(AABB_SOUTH.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(WEST))
-			RenderGlobal.drawSelectionBoundingBox(AABB_WEST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.func_189697_a(AABB_WEST.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(UP))
-			RenderGlobal.drawSelectionBoundingBox(AABB_UP.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));
+			RenderGlobal.func_189697_a(AABB_UP.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		if (state.getValue(DOWN))
-			RenderGlobal.drawSelectionBoundingBox(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2));*/
+			RenderGlobal.func_189697_a(AABB_DOWN.expandXyz(0.001).offset(blockPos.getX(), blockPos.getY(), blockPos.getZ()).offset(-d0, -d1, -d2), 0f, 0f, 0f, 0.4f);
 
 		GL11.glDepthMask(true);
 		GL11.glEnable(GL11.GL_TEXTURE_2D);
 		GL11.glDisable(GL11.GL_BLEND);
 
-		return false; //fixme change to true when fixed
+		return true;
 	}
 
 	@Override
